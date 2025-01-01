@@ -9,6 +9,7 @@ namespace Kursovaya2 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Сводка для Diary
@@ -59,6 +60,10 @@ namespace Kursovaya2 {
 
 	private: System::Windows::Forms::TextBox^ textBox_dinner;
 	private: System::Windows::Forms::Label^ label_JF;
+	private: System::Windows::Forms::Button^ button_breakfast;
+	private: System::Windows::Forms::Button^ button_Lunch;
+
+
 
 
 
@@ -95,6 +100,8 @@ namespace Kursovaya2 {
 			this->Dinner_tabl = (gcnew System::Windows::Forms::DataGridView());
 			this->textBox_dinner = (gcnew System::Windows::Forms::TextBox());
 			this->label_JF = (gcnew System::Windows::Forms::Label());
+			this->button_breakfast = (gcnew System::Windows::Forms::Button());
+			this->button_Lunch = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Breakfast_tabl))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Lunch_tabl))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Snack_tabl))->BeginInit();
@@ -112,6 +119,9 @@ namespace Kursovaya2 {
 			this->Breakfast_tabl->RowTemplate->Height = 24;
 			this->Breakfast_tabl->Size = System::Drawing::Size(517, 112);
 			this->Breakfast_tabl->TabIndex = 1;
+			this->Breakfast_tabl->Columns->Add("Ingredient", "Ingredient");
+			this->Breakfast_tabl->Columns->Add("Weight", "Weight (g)");
+			this->Breakfast_tabl->Columns->Add("Calories", "Calories (kcal)");
 			// 
 			// textBox_breakfast
 			// 
@@ -312,6 +322,26 @@ namespace Kursovaya2 {
 			this->label_JF->TabIndex = 16;
 			this->label_JF->Text = L"Просто пониже";
 			// 
+			// button_breakfast
+			// 
+			this->button_breakfast->Location = System::Drawing::Point(219, 45);
+			this->button_breakfast->Name = L"button_breakfast";
+			this->button_breakfast->Size = System::Drawing::Size(75, 23);
+			this->button_breakfast->TabIndex = 17;
+			this->button_breakfast->Text = L"Breakfast";
+			this->button_breakfast->UseVisualStyleBackColor = true;
+			this->button_breakfast->Click += gcnew EventHandler(this, &Diary::OnMealButtonClick);
+			// 
+			// button_Lunch
+			// 
+			this->button_Lunch->Location = System::Drawing::Point(219, 236);
+			this->button_Lunch->Name = L"button_Lunch";
+			this->button_Lunch->Size = System::Drawing::Size(75, 23);
+			this->button_Lunch->TabIndex = 18;
+			this->button_Lunch->Text = L"Lunch";
+			this->button_Lunch->UseVisualStyleBackColor = true;
+			this->button_Lunch->Click += gcnew EventHandler(this, &Diary::OnMealButtonClick);
+			// 
 			// Diary
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -319,6 +349,8 @@ namespace Kursovaya2 {
 			this->AutoScroll = true;
 			this->BackColor = System::Drawing::Color::Black;
 			this->ClientSize = System::Drawing::Size(633, 504);
+			this->Controls->Add(this->button_Lunch);
+			this->Controls->Add(this->button_breakfast);
 			this->Controls->Add(this->label_JF);
 			this->Controls->Add(this->label_snack_add);
 			this->Controls->Add(this->label_snack_cal);
@@ -351,14 +383,40 @@ namespace Kursovaya2 {
 
 		}
 #pragma endregion
-private: System::Void Diary_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	Owner->Show();
-}
-private: System::Void label_breakfast_add_Click(System::Object^ sender, System::EventArgs^ e) {
-	FindIng^ p = gcnew FindIng();
-	p->Show();
-	p->Owner = this;
-	this->Hide();
-}
+		void OnMealButtonClick(Object^ sender, EventArgs^ e) {
+			FindIng^ findIngForm = gcnew FindIng();
+			findIngForm->ShowDialog();
+
+			if (findIngForm->IsFind) {
+				// Получение данных из формы FindIng
+				String^ ingredient = findIngForm->GetIngredientName;
+				double weight = findIngForm->GetIngredientWeight;
+				double calories = findIngForm->GetIngredientCalories;
+
+				// Запись данных в DataGridView
+				this->Breakfast_tabl->Rows->Add(ingredient, weight, calories);
+
+				// Сохранение в файл
+				SaveIngredientToFile(ingredient, weight, calories);
+			}
+			else {
+				MessageBox::Show("Вы не завершили ввод данных.");
+			}
+		}
+
+		void SaveIngredientToFile(String^ ingredient, double weight, double calories) {
+			StreamWriter^ sw = gcnew StreamWriter("diary.txt", true);
+			sw->WriteLine("{0};{1};{2}", ingredient, weight, calories);
+			sw->Close();
+		}
+
+	private: System::Void Diary_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		Owner->Show();
+	}
+	private: System::Void label_breakfast_add_Click(System::Object^ sender, System::EventArgs^ e) {
+		System::String^ meal = "Breakfast"; // Example: Pass meal type
+		FindIng^ findForm = gcnew FindIng();
+		findForm->ShowDialog();
+	}
 };
 }
