@@ -409,6 +409,31 @@ namespace Kursovaya2 {
 			int age = Convert::ToInt32(textBox_age->Text);
 			bool isMale = checkBox_male->Checked;
 
+			// Проверка корректности ввода
+			if (weight < 30 || weight > 300) {
+				MessageBox::Show(L"Вес должен быть в диапазоне от 30 до 300 кг.",
+					L"Ошибка ввода",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Warning);
+				return;
+			}
+
+			if (height < 100 || height > 250) {
+				MessageBox::Show(L"Рост должен быть в диапазоне от 100 до 250 см.",
+					L"Ошибка ввода",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Warning);
+				return;
+			}
+
+			if (age < 15 || age > 80) {
+				MessageBox::Show(L"Возраст должен быть в диапазоне от 15 до 80 лет.",
+					L"Ошибка ввода",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Warning);
+				return;
+			}
+
 			// Рассчитываем BMR
 			double BMR;
 			if (isMale)
