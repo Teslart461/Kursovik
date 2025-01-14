@@ -1,5 +1,6 @@
 #pragma once
 #include "UserData.h"
+#include "Computation.h"
 
 namespace Kursovaya2 {
 
@@ -114,9 +115,9 @@ namespace Kursovaya2 {
 			this->button_add_ing->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button_add_ing->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_add_ing->Location = System::Drawing::Point(297, 48);
+			this->button_add_ing->Location = System::Drawing::Point(297, 53);
 			this->button_add_ing->Name = L"button_add_ing";
-			this->button_add_ing->Size = System::Drawing::Size(195, 66);
+			this->button_add_ing->Size = System::Drawing::Size(195, 61);
 			this->button_add_ing->TabIndex = 6;
 			this->button_add_ing->Text = L"Добавить ингредиент";
 			this->button_add_ing->UseVisualStyleBackColor = false;
@@ -127,7 +128,7 @@ namespace Kursovaya2 {
 			this->button_add_recipe->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button_add_recipe->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_add_recipe->Location = System::Drawing::Point(297, 193);
+			this->button_add_recipe->Location = System::Drawing::Point(297, 192);
 			this->button_add_recipe->Name = L"button_add_recipe";
 			this->button_add_recipe->Size = System::Drawing::Size(195, 62);
 			this->button_add_recipe->TabIndex = 7;
@@ -145,6 +146,7 @@ namespace Kursovaya2 {
 			this->button_calculate->TabIndex = 8;
 			this->button_calculate->Text = L"Рассчитать сутки";
 			this->button_calculate->UseVisualStyleBackColor = false;
+			this->button_calculate->Click += gcnew System::EventHandler(this, &Profile::button_calculate_Click);
 			// 
 			// Profile
 			// 
@@ -163,6 +165,7 @@ namespace Kursovaya2 {
 			this->Name = L"Profile";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Profile";
+			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &Profile::Profile_FormClosed);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -180,6 +183,15 @@ namespace Kursovaya2 {
 			Owner->Show();
 			this->Close();
 		}
+	}
+	private: System::Void Profile_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
+		Owner->Show();
+	}
+	private: System::Void button_calculate_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Hide();
+		Computation^ CompForm = gcnew Computation();  
+		CompForm->Show();
+		CompForm->Owner = this;
 	}
 };
 }
