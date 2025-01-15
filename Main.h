@@ -83,6 +83,7 @@ namespace Kursovaya2 {
 			this->label_welcome->Size = System::Drawing::Size(278, 33);
 			this->label_welcome->TabIndex = 0;
 			this->label_welcome->Text = L"Добро пожаловать!";
+			this->label_welcome->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// button_profile
 			// 
@@ -152,7 +153,22 @@ namespace Kursovaya2 {
 		}
 #pragma endregion
 
-	private: System::Void Main_Load(System::Object^ sender, System::EventArgs^ e) { // Сделана проверка на существование файлов и проверка на дату. Diary.txt это не касается, но у него есть добавление даты, так как он используется для отчётов
+	private: System::Void Main_Load(System::Object^ sender, System::EventArgs^ e) { 
+		// Массив имён файлов для проверки
+		array<String^>^ filePaths = { "ingredients.txt", "recipes.txt" };
+
+		for each (String ^ filePath in filePaths) {
+			if (!File::Exists(filePath)) {
+				try {
+					// Создаём пустой файл
+					File::WriteAllText(filePath, "");
+					MessageBox::Show("Файл " + filePath + " не найден. Создан новый пустой файл.", "Информация", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				catch (Exception^ ex) {
+					MessageBox::Show("Ошибка при создании файла " + filePath + ": " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+			}
+		}
 	}
 
 	String^ getCurrentDate() {
@@ -238,7 +254,7 @@ namespace Kursovaya2 {
 private: System::Void Main_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
 	if (Profile::ism == 1) {
 		this->label_welcome->Location = System::Drawing::Point(21, 54);
-		this->label_welcome->Text = "Добро пожаловать, " + userData->UserName + "!";
+		this->label_welcome->Text = L"Добро пожаловать, " + userData->UserName + "!";
 		String^ currentUserName = userData->UserName;  // Используем переданный объект данных
 		updateDiaryFile(currentUserName, "diary.txt");
 		createOrUpdateFile(currentUserName, "breakfast.txt");
