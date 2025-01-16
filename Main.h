@@ -140,7 +140,7 @@ namespace Kursovaya2 {
 			this->Controls->Add(this->button_profile);
 			this->Controls->Add(this->label_welcome);
 			this->ForeColor = System::Drawing::Color::DeepSkyBlue;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Main";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -240,19 +240,22 @@ namespace Kursovaya2 {
 	}
 
 	private: System::Void button_diary_Click(System::Object^ sender, System::EventArgs^ e) {
-		Diary^ DiaryShow = gcnew Diary();
+		Diary^ DiaryShow = gcnew Diary(userData);
 		DiaryShow->Show();
 		DiaryShow->Owner = this;
 		this->Hide();
 	}
+
 	private: System::Void button_profile_Click(System::Object^ sender, System::EventArgs^ e) {
 		Profile^ profileForm = gcnew Profile(userData);  // Передаем данные в новую форму
 		profileForm->Show();
 		profileForm->Owner = this;
 		this->Hide();
 	}
-private: System::Void Main_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
+
+	private: System::Void Main_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
 	if (Profile::ism == 1) {
+		this->button_diary->Enabled = true;
 		this->label_welcome->Location = System::Drawing::Point(21, 54);
 		this->label_welcome->Text = L"Добро пожаловать, " + userData->UserName + "!";
 		String^ currentUserName = userData->UserName;  // Используем переданный объект данных
@@ -261,6 +264,9 @@ private: System::Void Main_MouseEnter(System::Object^ sender, System::EventArgs^
 		createOrUpdateFile(currentUserName, "lunch.txt");
 		createOrUpdateFile(currentUserName, "dinner.txt");
 		createOrUpdateFile(currentUserName, "snack.txt");
+	}
+	else {
+		this->button_diary->Enabled = false;
 	}
 }
 };
