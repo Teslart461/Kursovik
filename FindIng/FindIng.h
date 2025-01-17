@@ -20,6 +20,7 @@ namespace Kursovaya2 {
 	{
 	private:
 		System::String^ mealType; // Тип приёма пищи
+	private: System::Windows::Forms::ListBox^ listBox2;
 		   UserData^ userData;
 	public:
 		FindIng(System::String^ mealType, UserData^ data)
@@ -132,6 +133,7 @@ namespace Kursovaya2 {
 			   this->label_recipe = (gcnew System::Windows::Forms::Label());
 			   this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			   this->button_add_recipe = (gcnew System::Windows::Forms::Button());
+			   this->listBox2 = (gcnew System::Windows::Forms::ListBox());
 			   this->panel1->SuspendLayout();
 			   this->panel2->SuspendLayout();
 			   this->SuspendLayout();
@@ -166,7 +168,7 @@ namespace Kursovaya2 {
 			   // label_cal
 			   // 
 			   this->label_cal->AutoSize = true;
-			   this->label_cal->Location = System::Drawing::Point(27, 95);
+			   this->label_cal->Location = System::Drawing::Point(27, 188);
 			   this->label_cal->Name = L"label_cal";
 			   this->label_cal->Size = System::Drawing::Size(82, 13);
 			   this->label_cal->TabIndex = 4;
@@ -174,7 +176,7 @@ namespace Kursovaya2 {
 			   // 
 			   // textBox_cal
 			   // 
-			   this->textBox_cal->Location = System::Drawing::Point(202, 92);
+			   this->textBox_cal->Location = System::Drawing::Point(202, 185);
 			   this->textBox_cal->Name = L"textBox_cal";
 			   this->textBox_cal->Size = System::Drawing::Size(75, 20);
 			   this->textBox_cal->TabIndex = 5;
@@ -182,7 +184,7 @@ namespace Kursovaya2 {
 			   // label_proteins
 			   // 
 			   this->label_proteins->AutoSize = true;
-			   this->label_proteins->Location = System::Drawing::Point(27, 162);
+			   this->label_proteins->Location = System::Drawing::Point(27, 255);
 			   this->label_proteins->Name = L"label_proteins";
 			   this->label_proteins->Size = System::Drawing::Size(41, 13);
 			   this->label_proteins->TabIndex = 6;
@@ -190,7 +192,7 @@ namespace Kursovaya2 {
 			   // 
 			   // textBox_proteins
 			   // 
-			   this->textBox_proteins->Location = System::Drawing::Point(202, 159);
+			   this->textBox_proteins->Location = System::Drawing::Point(202, 252);
 			   this->textBox_proteins->Name = L"textBox_proteins";
 			   this->textBox_proteins->Size = System::Drawing::Size(75, 20);
 			   this->textBox_proteins->TabIndex = 7;
@@ -198,7 +200,7 @@ namespace Kursovaya2 {
 			   // label_fats
 			   // 
 			   this->label_fats->AutoSize = true;
-			   this->label_fats->Location = System::Drawing::Point(27, 231);
+			   this->label_fats->Location = System::Drawing::Point(27, 324);
 			   this->label_fats->Name = L"label_fats";
 			   this->label_fats->Size = System::Drawing::Size(41, 13);
 			   this->label_fats->TabIndex = 8;
@@ -206,7 +208,7 @@ namespace Kursovaya2 {
 			   // 
 			   // textBox_fats
 			   // 
-			   this->textBox_fats->Location = System::Drawing::Point(202, 228);
+			   this->textBox_fats->Location = System::Drawing::Point(202, 321);
 			   this->textBox_fats->Name = L"textBox_fats";
 			   this->textBox_fats->Size = System::Drawing::Size(75, 20);
 			   this->textBox_fats->TabIndex = 9;
@@ -214,7 +216,7 @@ namespace Kursovaya2 {
 			   // label_cals
 			   // 
 			   this->label_cals->AutoSize = true;
-			   this->label_cals->Location = System::Drawing::Point(27, 304);
+			   this->label_cals->Location = System::Drawing::Point(27, 397);
 			   this->label_cals->Name = L"label_cals";
 			   this->label_cals->Size = System::Drawing::Size(61, 13);
 			   this->label_cals->TabIndex = 10;
@@ -222,7 +224,7 @@ namespace Kursovaya2 {
 			   // 
 			   // textBox_carbs
 			   // 
-			   this->textBox_carbs->Location = System::Drawing::Point(202, 301);
+			   this->textBox_carbs->Location = System::Drawing::Point(202, 394);
 			   this->textBox_carbs->Name = L"textBox_carbs";
 			   this->textBox_carbs->Size = System::Drawing::Size(75, 20);
 			   this->textBox_carbs->TabIndex = 11;
@@ -230,7 +232,7 @@ namespace Kursovaya2 {
 			   // label_fiber
 			   // 
 			   this->label_fiber->AutoSize = true;
-			   this->label_fiber->Location = System::Drawing::Point(27, 373);
+			   this->label_fiber->Location = System::Drawing::Point(27, 466);
 			   this->label_fiber->Name = L"label_fiber";
 			   this->label_fiber->Size = System::Drawing::Size(104, 13);
 			   this->label_fiber->TabIndex = 12;
@@ -238,14 +240,14 @@ namespace Kursovaya2 {
 			   // 
 			   // textBox_fibers
 			   // 
-			   this->textBox_fibers->Location = System::Drawing::Point(202, 370);
+			   this->textBox_fibers->Location = System::Drawing::Point(202, 463);
 			   this->textBox_fibers->Name = L"textBox_fibers";
 			   this->textBox_fibers->Size = System::Drawing::Size(75, 20);
 			   this->textBox_fibers->TabIndex = 13;
 			   // 
 			   // button_redact
 			   // 
-			   this->button_redact->Location = System::Drawing::Point(473, 208);
+			   this->button_redact->Location = System::Drawing::Point(473, 87);
 			   this->button_redact->Name = L"button_redact";
 			   this->button_redact->Size = System::Drawing::Size(137, 40);
 			   this->button_redact->TabIndex = 14;
@@ -255,7 +257,7 @@ namespace Kursovaya2 {
 			   // 
 			   // button_math
 			   // 
-			   this->button_math->Location = System::Drawing::Point(473, 139);
+			   this->button_math->Location = System::Drawing::Point(30, 123);
 			   this->button_math->Name = L"button_math";
 			   this->button_math->Size = System::Drawing::Size(137, 40);
 			   this->button_math->TabIndex = 15;
@@ -266,7 +268,7 @@ namespace Kursovaya2 {
 			   // label_weight
 			   // 
 			   this->label_weight->AutoSize = true;
-			   this->label_weight->Location = System::Drawing::Point(527, 67);
+			   this->label_weight->Location = System::Drawing::Point(84, 62);
 			   this->label_weight->Name = L"label_weight";
 			   this->label_weight->Size = System::Drawing::Size(29, 13);
 			   this->label_weight->TabIndex = 16;
@@ -274,14 +276,14 @@ namespace Kursovaya2 {
 			   // 
 			   // textBox_weight
 			   // 
-			   this->textBox_weight->Location = System::Drawing::Point(473, 92);
+			   this->textBox_weight->Location = System::Drawing::Point(30, 87);
 			   this->textBox_weight->Name = L"textBox_weight";
 			   this->textBox_weight->Size = System::Drawing::Size(137, 20);
 			   this->textBox_weight->TabIndex = 17;
 			   // 
 			   // button_add
 			   // 
-			   this->button_add->Location = System::Drawing::Point(473, 281);
+			   this->button_add->Location = System::Drawing::Point(473, 185);
 			   this->button_add->Name = L"button_add";
 			   this->button_add->Size = System::Drawing::Size(137, 40);
 			   this->button_add->TabIndex = 18;
@@ -336,7 +338,7 @@ namespace Kursovaya2 {
 			   this->panel1->Controls->Add(this->textBox_carbs_calcul);
 			   this->panel1->Controls->Add(this->textBox_proteins_calcul);
 			   this->panel1->Controls->Add(this->textBox_fats_calcul);
-			   this->panel1->Location = System::Drawing::Point(307, 92);
+			   this->panel1->Location = System::Drawing::Point(307, 185);
 			   this->panel1->Name = L"panel1";
 			   this->panel1->Size = System::Drawing::Size(75, 298);
 			   this->panel1->TabIndex = 24;
@@ -346,7 +348,7 @@ namespace Kursovaya2 {
 			   this->panel2->Controls->Add(this->button_find_recipe);
 			   this->panel2->Controls->Add(this->textBox_recipe);
 			   this->panel2->Controls->Add(this->label_recipe);
-			   this->panel2->Location = System::Drawing::Point(30, 417);
+			   this->panel2->Location = System::Drawing::Point(30, 521);
 			   this->panel2->Name = L"panel2";
 			   this->panel2->Size = System::Drawing::Size(592, 45);
 			   this->panel2->TabIndex = 25;
@@ -383,14 +385,14 @@ namespace Kursovaya2 {
 			   // 
 			   this->listBox1->BackColor = System::Drawing::SystemColors::Control;
 			   this->listBox1->FormattingEnabled = true;
-			   this->listBox1->Location = System::Drawing::Point(473, 334);
+			   this->listBox1->Location = System::Drawing::Point(202, 71);
 			   this->listBox1->Name = L"listBox1";
-			   this->listBox1->Size = System::Drawing::Size(137, 82);
+			   this->listBox1->Size = System::Drawing::Size(180, 82);
 			   this->listBox1->TabIndex = 26;
 			   // 
 			   // button_add_recipe
 			   // 
-			   this->button_add_recipe->Location = System::Drawing::Point(473, 281);
+			   this->button_add_recipe->Location = System::Drawing::Point(473, 185);
 			   this->button_add_recipe->Name = L"button_add_recipe";
 			   this->button_add_recipe->Size = System::Drawing::Size(137, 40);
 			   this->button_add_recipe->TabIndex = 27;
@@ -398,12 +400,23 @@ namespace Kursovaya2 {
 			   this->button_add_recipe->UseVisualStyleBackColor = true;
 			   this->button_add_recipe->Click += gcnew System::EventHandler(this, &FindIng::button_add_recipe_Click);
 			   // 
+			   // listBox2
+			   // 
+			   this->listBox2->BackColor = System::Drawing::SystemColors::Control;
+			   this->listBox2->FormattingEnabled = true;
+			   this->listBox2->Location = System::Drawing::Point(473, 259);
+			   this->listBox2->Name = L"listBox2";
+			   this->listBox2->Size = System::Drawing::Size(137, 225);
+			   this->listBox2->TabIndex = 28;
+			   this->listBox2->SelectedIndexChanged += gcnew System::EventHandler(this, &FindIng::listBox2_SelectedIndexChanged);
+			   // 
 			   // FindIng
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			   this->BackColor = System::Drawing::Color::Black;
-			   this->ClientSize = System::Drawing::Size(644, 492);
+			   this->ClientSize = System::Drawing::Size(647, 590);
+			   this->Controls->Add(this->listBox2);
 			   this->Controls->Add(this->button_add_recipe);
 			   this->Controls->Add(this->listBox1);
 			   this->Controls->Add(this->panel2);
@@ -434,6 +447,7 @@ namespace Kursovaya2 {
 			   this->Text = L"Найти ингредиент";
 			   this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &FindIng::FindIng_FormClosed);
 			   this->Load += gcnew System::EventHandler(this, &FindIng::FindIng_Load);
+			   this->MouseEnter += gcnew System::EventHandler(this, &FindIng::FindIng_MouseEnter);
 			   this->panel1->ResumeLayout(false);
 			   this->panel1->PerformLayout();
 			   this->panel2->ResumeLayout(false);
@@ -453,6 +467,21 @@ namespace Kursovaya2 {
 		this->button_add->Visible = false;
 		this->button_redact->Visible = false;
 		this->listBox1->Visible = false;
+		this->listBox2->Visible = true;
+
+		try {
+			array<String^>^ lines = File::ReadAllLines("recipes.txt");
+			listBox2->Items->Clear(); // Очистить ListBox2 перед добавлением новых элементов
+			for each (String ^ line in lines) {
+				array<String^>^ parts = line->Split(';');
+				if (parts->Length > 0) {
+					listBox2->Items->Add(parts[0]); // Добавление названия рецепта в ListBox2
+				}
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка чтения файла рецептов: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 	
 	// Функция для создания пути к файлам пользователя
@@ -527,6 +556,7 @@ namespace Kursovaya2 {
 			this->textBox_fats->Enabled = true;
 			this->textBox_carbs->Enabled = true;
 			this->textBox_fibers->Enabled = true;
+			if (!rec) { this->listBox2->Visible = true; }
 
 		}
 		catch (Exception^ ex) {
@@ -624,6 +654,7 @@ namespace Kursovaya2 {
 				this->textBox_carbs->Enabled = false;
 				this->textBox_fibers->Enabled = false;
 				this->panel2->Visible = false;
+				this->listBox2->Visible = false;
 			}
 		}
 		catch (Exception^ ex) {
@@ -683,6 +714,7 @@ namespace Kursovaya2 {
 			this->button_redact->Visible = false;
 			this->button_add->Visible = true;
 			this->panel2->Visible = false;
+			this->listBox2->Visible = false;
 			if (rec) { this->button_add_recipe->Visible = true; }
 		}
 		catch (FormatException^ ex) {
@@ -740,6 +772,7 @@ namespace Kursovaya2 {
 				this->panel2->Visible = false;
 				this->button_add->Visible = false;
 				this->listBox1->Visible = true;
+				this->listBox2->Visible = false;
 				button_find_Click(sender, e);
 			}
 		}
@@ -762,6 +795,31 @@ namespace Kursovaya2 {
 			this->button_add_recipe->Visible = false;
 			this->panel2->Visible = true;
 			rec = 0;
+			this->listBox2->Visible = true;
+		}
+	}
+
+	private: System::Void listBox2_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		// Проверка, что выбранный элемент не пустой
+		if (listBox2->SelectedItem != nullptr) {
+			// Установка выбранного рецепта в TextBox_rec_name
+			textBox_recipe->Text = listBox2->SelectedItem->ToString();
+		}
+	}
+
+	private: System::Void FindIng_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			array<String^>^ lines = File::ReadAllLines("recipes.txt");
+			listBox2->Items->Clear(); // Очистить ListBox2 перед добавлением новых элементов
+			for each (String ^ line in lines) {
+				array<String^>^ parts = line->Split(';');
+				if (parts->Length > 0) {
+					listBox2->Items->Add(parts[0]); // Добавление названия рецепта в ListBox2
+				}
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка чтения файла рецептов: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 };
