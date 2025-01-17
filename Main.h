@@ -1,6 +1,7 @@
 #pragma once
 #include "Diary.h"
 #include "Profile.h"
+#include "Report.h"
 #include "UserData.h"
 
 namespace Kursovaya2 {
@@ -128,6 +129,7 @@ namespace Kursovaya2 {
 			this->button_reports_of_nutrition->TabIndex = 3;
 			this->button_reports_of_nutrition->Text = L"Отчёты";
 			this->button_reports_of_nutrition->UseVisualStyleBackColor = false;
+			this->button_reports_of_nutrition->Click += gcnew System::EventHandler(this, &Main::button_reports_of_nutrition_Click);
 			// 
 			// Main
 			// 
@@ -256,6 +258,7 @@ namespace Kursovaya2 {
 	private: System::Void Main_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
 	if (Profile::ism == 1) {
 		this->button_diary->Enabled = true;
+		this->button_reports_of_nutrition->Enabled = true;
 		this->label_welcome->Location = System::Drawing::Point(21, 54);
 		this->label_welcome->Text = L"Добро пожаловать, " + userData->UserName + "!";
 		String^ currentUserName = userData->UserName;  // Используем переданный объект данных
@@ -267,7 +270,15 @@ namespace Kursovaya2 {
 	}
 	else {
 		this->button_diary->Enabled = false;
+		this->button_reports_of_nutrition->Enabled = false;
 	}
 }
+
+	private: System::Void button_reports_of_nutrition_Click(System::Object^ sender, System::EventArgs^ e) {
+		Report^ ReportForm = gcnew Report(userData);  // Передаем данные в новую форму
+		ReportForm->Show();
+		ReportForm->Owner = this;
+		this->Hide();
+	}
 };
 }
