@@ -22,6 +22,7 @@ namespace Kursovaya2 {
 	private: System::Windows::Forms::Button^ button_redact_ing;
 	private: System::Windows::Forms::Button^ button_delete_ing;
 	private: System::Windows::Forms::Button^ button_delete_recipe;
+	private: System::Windows::Forms::ListBox^ listBox2;
 		   Dictionary<String^, List<String^>^>^ recipes;
 	public:
 		RecWorking(void)
@@ -80,6 +81,7 @@ namespace Kursovaya2 {
 			this->button_redact_ing = (gcnew System::Windows::Forms::Button());
 			this->button_delete_ing = (gcnew System::Windows::Forms::Button());
 			this->button_delete_recipe = (gcnew System::Windows::Forms::Button());
+			this->listBox2 = (gcnew System::Windows::Forms::ListBox());
 			this->SuspendLayout();
 			// 
 			// label_name
@@ -87,7 +89,7 @@ namespace Kursovaya2 {
 			this->label_name->AutoSize = true;
 			this->label_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_name->Location = System::Drawing::Point(25, 27);
+			this->label_name->Location = System::Drawing::Point(25, 50);
 			this->label_name->Name = L"label_name";
 			this->label_name->Size = System::Drawing::Size(154, 20);
 			this->label_name->TabIndex = 0;
@@ -95,7 +97,7 @@ namespace Kursovaya2 {
 			// 
 			// textBox_name
 			// 
-			this->textBox_name->Location = System::Drawing::Point(217, 29);
+			this->textBox_name->Location = System::Drawing::Point(217, 52);
 			this->textBox_name->MaximumSize = System::Drawing::Size(150, 20);
 			this->textBox_name->Name = L"textBox_name";
 			this->textBox_name->Size = System::Drawing::Size(150, 20);
@@ -104,7 +106,7 @@ namespace Kursovaya2 {
 			// listBox
 			// 
 			this->listBox->FormattingEnabled = true;
-			this->listBox->Location = System::Drawing::Point(427, 172);
+			this->listBox->Location = System::Drawing::Point(388, 152);
 			this->listBox->Name = L"listBox";
 			this->listBox->Size = System::Drawing::Size(180, 95);
 			this->listBox->TabIndex = 2;
@@ -114,7 +116,7 @@ namespace Kursovaya2 {
 			this->label_ing->AutoSize = true;
 			this->label_ing->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_ing->Location = System::Drawing::Point(25, 111);
+			this->label_ing->Location = System::Drawing::Point(25, 186);
 			this->label_ing->Name = L"label_ing";
 			this->label_ing->Size = System::Drawing::Size(105, 20);
 			this->label_ing->TabIndex = 3;
@@ -122,7 +124,7 @@ namespace Kursovaya2 {
 			// 
 			// textBox_ing
 			// 
-			this->textBox_ing->Location = System::Drawing::Point(217, 113);
+			this->textBox_ing->Location = System::Drawing::Point(217, 188);
 			this->textBox_ing->MaximumSize = System::Drawing::Size(150, 20);
 			this->textBox_ing->Name = L"textBox_ing";
 			this->textBox_ing->Size = System::Drawing::Size(150, 20);
@@ -132,7 +134,7 @@ namespace Kursovaya2 {
 			// 
 			this->button_add_ing->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_add_ing->Location = System::Drawing::Point(418, 97);
+			this->button_add_ing->Location = System::Drawing::Point(596, 172);
 			this->button_add_ing->Name = L"button_add_ing";
 			this->button_add_ing->Size = System::Drawing::Size(198, 48);
 			this->button_add_ing->TabIndex = 5;
@@ -144,7 +146,7 @@ namespace Kursovaya2 {
 			// 
 			this->button_save->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_save->Location = System::Drawing::Point(436, 283);
+			this->button_save->Location = System::Drawing::Point(611, 280);
 			this->button_save->Name = L"button_save";
 			this->button_save->Size = System::Drawing::Size(160, 48);
 			this->button_save->TabIndex = 6;
@@ -156,7 +158,7 @@ namespace Kursovaya2 {
 			// 
 			this->button_find->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_find->Location = System::Drawing::Point(418, 13);
+			this->button_find->Location = System::Drawing::Point(596, 36);
 			this->button_find->Name = L"button_find";
 			this->button_find->Size = System::Drawing::Size(198, 48);
 			this->button_find->TabIndex = 7;
@@ -168,7 +170,7 @@ namespace Kursovaya2 {
 			// 
 			this->button_redact_ing->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_redact_ing->Location = System::Drawing::Point(29, 172);
+			this->button_redact_ing->Location = System::Drawing::Point(90, 280);
 			this->button_redact_ing->Name = L"button_redact_ing";
 			this->button_redact_ing->Size = System::Drawing::Size(150, 48);
 			this->button_redact_ing->TabIndex = 8;
@@ -180,7 +182,7 @@ namespace Kursovaya2 {
 			// 
 			this->button_delete_ing->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_delete_ing->Location = System::Drawing::Point(217, 172);
+			this->button_delete_ing->Location = System::Drawing::Point(351, 280);
 			this->button_delete_ing->Name = L"button_delete_ing";
 			this->button_delete_ing->Size = System::Drawing::Size(150, 48);
 			this->button_delete_ing->TabIndex = 9;
@@ -192,7 +194,7 @@ namespace Kursovaya2 {
 			// 
 			this->button_delete_recipe->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->button_delete_recipe->Location = System::Drawing::Point(100, 283);
+			this->button_delete_recipe->Location = System::Drawing::Point(90, 102);
 			this->button_delete_recipe->Name = L"button_delete_recipe";
 			this->button_delete_recipe->Size = System::Drawing::Size(198, 48);
 			this->button_delete_recipe->TabIndex = 10;
@@ -200,12 +202,22 @@ namespace Kursovaya2 {
 			this->button_delete_recipe->UseVisualStyleBackColor = true;
 			this->button_delete_recipe->Click += gcnew System::EventHandler(this, &RecWorking::button_delete_recipe_Click);
 			// 
+			// listBox2
+			// 
+			this->listBox2->FormattingEnabled = true;
+			this->listBox2->Location = System::Drawing::Point(388, 13);
+			this->listBox2->Name = L"listBox2";
+			this->listBox2->Size = System::Drawing::Size(180, 95);
+			this->listBox2->TabIndex = 11;
+			this->listBox2->SelectedIndexChanged += gcnew System::EventHandler(this, &RecWorking::listBox2_SelectedIndexChanged);
+			// 
 			// RecWorking
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Black;
-			this->ClientSize = System::Drawing::Size(636, 352);
+			this->ClientSize = System::Drawing::Size(820, 372);
+			this->Controls->Add(this->listBox2);
 			this->Controls->Add(this->button_delete_recipe);
 			this->Controls->Add(this->button_delete_ing);
 			this->Controls->Add(this->button_redact_ing);
@@ -224,6 +236,7 @@ namespace Kursovaya2 {
 			this->Text = L"Управление рецептами";
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &RecWorking::RecWorking_FormClosed);
 			this->Load += gcnew System::EventHandler(this, &RecWorking::RecWorking_Load);
+			this->MouseEnter += gcnew System::EventHandler(this, &RecWorking::RecWorking_MouseEnter);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -268,6 +281,7 @@ namespace Kursovaya2 {
 		this->button_delete_recipe->Visible = true;
 		this->button_save->Visible = true;
 		this->listBox->Visible = true;
+		this->listBox2->Visible = false;
 	}
 
 	private:void SaveRecipesToFile() {
@@ -310,6 +324,7 @@ namespace Kursovaya2 {
 		this->button_save->Visible = false;
 		this->button_find->Visible = true;
 		this->listBox->Visible = false;
+		this->listBox2->Visible = true;
 		find = false;
 	}
 
@@ -333,6 +348,7 @@ namespace Kursovaya2 {
 		this->button_save->Visible = true;
 		this->button_find->Visible = false;
 		this->listBox->Visible = true;
+		this->listBox2->Visible = false;
 		find = true;
 	}
 
@@ -377,6 +393,7 @@ namespace Kursovaya2 {
 			this->button_save->Visible = false;
 			this->button_find->Visible = true;
 			this->listBox->Visible = false;
+			this->listBox2->Visible = true;
 			find = false;
 			textBox_name->Clear();
 			textBox_ing->Clear();
@@ -390,10 +407,50 @@ namespace Kursovaya2 {
 		this->button_delete_recipe->Visible = false;
 		this->button_save->Visible = false;
 		this->listBox->Visible = false;
+
+		this->listBox2->Visible = true;
+
+		try {
+			array<String^>^ lines = File::ReadAllLines("recipes.txt");
+			listBox2->Items->Clear(); // Очистить ListBox2 перед добавлением новых элементов
+			for each (String ^ line in lines) {
+				array<String^>^ parts = line->Split(';');
+				if (parts->Length > 0) {
+					listBox2->Items->Add(parts[0]); // Добавление названия рецепта в ListBox2
+				}
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка чтения файла рецептов: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 
 	private: System::Void RecWorking_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
 		Owner->Show();
+	}
+
+	private: System::Void listBox2_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		// Проверка, что выбранный элемент не пустой
+		if (listBox2->SelectedItem != nullptr) {
+			// Установка выбранного рецепта в TextBox_rec_name
+			textBox_name->Text = listBox2->SelectedItem->ToString();
+		}
+	}
+
+	private: System::Void RecWorking_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			array<String^>^ lines = File::ReadAllLines("recipes.txt");
+			listBox2->Items->Clear(); // Очистить ListBox2 перед добавлением новых элементов
+			for each (String ^ line in lines) {
+				array<String^>^ parts = line->Split(';');
+				if (parts->Length > 0) {
+					listBox2->Items->Add(parts[0]); // Добавление названия рецепта в ListBox2
+				}
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка чтения файла рецептов: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 };
 }
