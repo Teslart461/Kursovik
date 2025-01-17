@@ -41,6 +41,58 @@ namespace Kursovaya2 {
 				delete components;
 			}
 		}
+
+	private:
+		ref class DailyInfo {
+		public:
+			String^ date;
+			double calories;
+			double proteins;
+			double fats;
+			double carbs;
+
+			DailyInfo(String^ date, double calories, double proteins, double fats, double carbs) {
+				this->date = date;
+				this->calories = calories;
+				this->proteins = proteins;
+				this->fats = fats;
+				this->carbs = carbs;
+			}
+		};
+
+		ref class DiaryHandler {
+		private:
+			double totalCalories = 0;
+			double totalProteins = 0;
+			double totalFats = 0;
+			double totalCarbs = 0;
+
+			public:
+			// Метод для сброса итоговых значений
+			void ResetTotals() {
+				totalCalories = 0;
+				totalProteins = 0;
+				totalFats = 0;
+				totalCarbs = 0;
+			}
+
+			// Метод для подсчёта общих значений из DataGridView
+			void CalculateTotals(DataGridView^ dgv) {
+				for (int i = 0; i < dgv->Rows->Count - 1; ++i) {
+					totalCalories += Convert::ToDouble(dgv->Rows[i]->Cells["Calories"]->Value);
+					totalProteins += Convert::ToDouble(dgv->Rows[i]->Cells["Proteins"]->Value);
+					totalFats += Convert::ToDouble(dgv->Rows[i]->Cells["Fats"]->Value);
+					totalCarbs += Convert::ToDouble(dgv->Rows[i]->Cells["Carbs"]->Value);
+				}
+			}
+
+			// Геттеры для итоговых значений
+			double GetTotalCalories() { return totalCalories; }
+			double GetTotalProteins() { return totalProteins; }
+			double GetTotalFats() { return totalFats; }
+			double GetTotalCarbs() { return totalCarbs; }
+		};
+
 	private: System::Windows::Forms::DataGridView^ Breakfast_tabl;
 	protected:
 	private: System::Windows::Forms::TextBox^ textBox_breakfast;
@@ -127,8 +179,8 @@ namespace Kursovaya2 {
 	private: System::Windows::Forms::Label^ label_snk_cal;
 
 	private: System::Windows::Forms::DataGridView^ Snack_tabl;
-private: System::Windows::Forms::Label^ label1;
-
+	private: System::Windows::Forms::Label^ label1;
+private: System::Windows::Forms::Button^ button_report;
 
 
 
@@ -153,18 +205,18 @@ private: System::Windows::Forms::Label^ label1;
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle13 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle14 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle15 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle16 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle17 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle18 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle19 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle20 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle21 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle22 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle23 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle24 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle9 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle10 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle11 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle12 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->Breakfast_tabl = (gcnew System::Windows::Forms::DataGridView());
 			this->textBox_breakfast = (gcnew System::Windows::Forms::TextBox());
 			this->label_breakfast_add = (gcnew System::Windows::Forms::Label());
@@ -210,6 +262,7 @@ private: System::Windows::Forms::Label^ label1;
 			this->label_snk_cal = (gcnew System::Windows::Forms::Label());
 			this->Snack_tabl = (gcnew System::Windows::Forms::DataGridView());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->button_report = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Breakfast_tabl))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Lunch_tabl))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Dinner_tabl))->BeginInit();
@@ -218,37 +271,37 @@ private: System::Windows::Forms::Label^ label1;
 			// 
 			// Breakfast_tabl
 			// 
-			dataGridViewCellStyle13->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle13->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle13->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle13->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle13->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle13->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Breakfast_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Breakfast_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this->Breakfast_tabl->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			dataGridViewCellStyle14->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle14->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle14->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle14->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle14->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle14->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Breakfast_tabl->DefaultCellStyle = dataGridViewCellStyle14;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Breakfast_tabl->DefaultCellStyle = dataGridViewCellStyle2;
 			this->Breakfast_tabl->EnableHeadersVisualStyles = false;
 			this->Breakfast_tabl->Location = System::Drawing::Point(28, 73);
 			this->Breakfast_tabl->Name = L"Breakfast_tabl";
-			dataGridViewCellStyle15->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle15->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle15->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle15->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle15->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle15->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle15->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Breakfast_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Breakfast_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this->Breakfast_tabl->Size = System::Drawing::Size(543, 104);
 			this->Breakfast_tabl->TabIndex = 1;
 			// 
@@ -570,37 +623,37 @@ private: System::Windows::Forms::Label^ label1;
 			// 
 			// Lunch_tabl
 			// 
-			dataGridViewCellStyle16->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle16->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle16->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle4->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle16->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle16->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle16->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle16->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Lunch_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Lunch_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this->Lunch_tabl->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			dataGridViewCellStyle17->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle17->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle17->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle5->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle17->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle17->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle17->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle17->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Lunch_tabl->DefaultCellStyle = dataGridViewCellStyle17;
+			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle5->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle5->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Lunch_tabl->DefaultCellStyle = dataGridViewCellStyle5;
 			this->Lunch_tabl->EnableHeadersVisualStyles = false;
 			this->Lunch_tabl->Location = System::Drawing::Point(28, 297);
 			this->Lunch_tabl->Name = L"Lunch_tabl";
-			dataGridViewCellStyle18->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle18->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle18->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle6->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle6->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle18->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle18->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle18->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle18->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Lunch_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
+			dataGridViewCellStyle6->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle6->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle6->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle6->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Lunch_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this->Lunch_tabl->Size = System::Drawing::Size(543, 104);
 			this->Lunch_tabl->TabIndex = 25;
 			// 
@@ -702,37 +755,37 @@ private: System::Windows::Forms::Label^ label1;
 			// 
 			// Dinner_tabl
 			// 
-			dataGridViewCellStyle19->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle19->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle19->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle7->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle7->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle19->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle19->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle19->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle19->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Dinner_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+			dataGridViewCellStyle7->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle7->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle7->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle7->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Dinner_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this->Dinner_tabl->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			dataGridViewCellStyle20->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle20->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle20->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle8->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle8->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle20->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle20->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle20->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle20->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Dinner_tabl->DefaultCellStyle = dataGridViewCellStyle20;
+			dataGridViewCellStyle8->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle8->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle8->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle8->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Dinner_tabl->DefaultCellStyle = dataGridViewCellStyle8;
 			this->Dinner_tabl->EnableHeadersVisualStyles = false;
 			this->Dinner_tabl->Location = System::Drawing::Point(28, 527);
 			this->Dinner_tabl->Name = L"Dinner_tabl";
-			dataGridViewCellStyle21->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle21->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle21->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle9->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle9->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle21->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle21->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle21->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle21->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Dinner_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+			dataGridViewCellStyle9->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle9->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle9->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle9->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Dinner_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
 			this->Dinner_tabl->Size = System::Drawing::Size(543, 104);
 			this->Dinner_tabl->TabIndex = 34;
 			// 
@@ -834,37 +887,37 @@ private: System::Windows::Forms::Label^ label1;
 			// 
 			// Snack_tabl
 			// 
-			dataGridViewCellStyle22->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle22->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle22->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle10->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle10->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle22->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle22->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle22->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle22->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Snack_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+			dataGridViewCellStyle10->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle10->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle10->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle10->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Snack_tabl->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
 			this->Snack_tabl->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			dataGridViewCellStyle23->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle23->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle23->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle11->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle11->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle23->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle23->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle23->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle23->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Snack_tabl->DefaultCellStyle = dataGridViewCellStyle23;
+			dataGridViewCellStyle11->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle11->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle11->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle11->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Snack_tabl->DefaultCellStyle = dataGridViewCellStyle11;
 			this->Snack_tabl->EnableHeadersVisualStyles = false;
 			this->Snack_tabl->Location = System::Drawing::Point(28, 766);
 			this->Snack_tabl->Name = L"Snack_tabl";
-			dataGridViewCellStyle24->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle24->BackColor = System::Drawing::Color::Silver;
-			dataGridViewCellStyle24->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle12->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle12->BackColor = System::Drawing::Color::Silver;
+			dataGridViewCellStyle12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			dataGridViewCellStyle24->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle24->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle24->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle24->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Snack_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+			dataGridViewCellStyle12->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle12->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle12->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle12->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Snack_tabl->RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
 			this->Snack_tabl->Size = System::Drawing::Size(543, 104);
 			this->Snack_tabl->TabIndex = 43;
 			// 
@@ -877,13 +930,27 @@ private: System::Windows::Forms::Label^ label1;
 			this->label1->TabIndex = 52;
 			this->label1->Text = L"label25";
 			// 
+			// button_report
+			// 
+			this->button_report->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button_report->ForeColor = System::Drawing::Color::DeepSkyBlue;
+			this->button_report->Location = System::Drawing::Point(203, 968);
+			this->button_report->Name = L"button_report";
+			this->button_report->Size = System::Drawing::Size(206, 50);
+			this->button_report->TabIndex = 53;
+			this->button_report->Text = L"Сформировать отчёт о дне";
+			this->button_report->UseVisualStyleBackColor = true;
+			this->button_report->Click += gcnew System::EventHandler(this, &Diary::button_report_Click);
+			// 
 			// Diary
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoScroll = true;
 			this->BackColor = System::Drawing::Color::Black;
-			this->ClientSize = System::Drawing::Size(609, 969);
+			this->ClientSize = System::Drawing::Size(609, 1033);
+			this->Controls->Add(this->button_report);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label_snk_crbs_dop);
 			this->Controls->Add(this->label_snk_fts_dop);
@@ -1104,11 +1171,98 @@ private: System::Windows::Forms::Label^ label1;
 		this->label_snk_crbs_dop->Text = totalCarbs.ToString() + "г";
 	}
 
+	public: void CalculateAndSaveDiary() {
+		DiaryHandler^ handler = gcnew DiaryHandler();
+
+		// Сбрасываем общие значения
+		handler->ResetTotals();
+
+		// Вычисляем общие значения для всех таблиц
+		handler->CalculateTotals(Breakfast_tabl);
+		handler->CalculateTotals(Lunch_tabl);
+		handler->CalculateTotals(Dinner_tabl);
+		handler->CalculateTotals(Snack_tabl);
+
+		// Получаем итоговые значения
+		double totalCalories = handler->GetTotalCalories();
+		double totalProteins = handler->GetTotalProteins();
+		double totalFats = handler->GetTotalFats();
+		double totalCarbs = handler->GetTotalCarbs();
+
+		// Получаем текущую дату
+		String^ currentDate = DateTime::Now.ToString("dd-MM-yyyy");
+
+		// Читаем существующий файл Diary.txt
+		// Получаем имя пользователя из класса UserName
+		String^ userName = userData->UserName;
+		// Составляем путь к файлу относительно папки проекта
+		String^ diaryPath = "users\\" + userName + "\\" + "Diary.txt";
+		array<String^>^ lines = File::Exists(diaryPath) ? File::ReadAllLines(diaryPath) : gcnew array<String^>(0);
+
+		// Проверяем, есть ли текущая дата в файле
+		bool dateExists = false;
+		for each (String ^ line in lines) {
+			if (line->StartsWith(currentDate)) {
+				dateExists = true;
+				break;
+			}
+		}
+
+		// Формируем строку для записи
+		String^ newEntry = currentDate + "; " + totalCalories + "; " + totalProteins + "; " + totalFats + "; " + totalCarbs;
+
+		if (!dateExists) {
+			// Если даты нет, добавляем её в файл
+			StreamWriter^ writer = gcnew StreamWriter(diaryPath, true);
+			writer->WriteLine(newEntry);
+			writer->Close();
+		}
+		else {
+			// Если дата есть, перезаписываем данные
+			for (int i = 0; i < lines->Length; ++i) {
+				if (lines[i]->StartsWith(currentDate)) {
+					lines[i] = newEntry;
+					break;
+				}
+			}
+			File::WriteAllLines(diaryPath, lines);
+		}
+	}
 
 	private: System::Void Diary_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
 		UpdateAllDataGridViews(); //Для обновления таблиц
 
 		CalculateMacros(); // Для обновления label
+
+		CalculateAndSaveDiary(); // Для обновления diary.txt
+	}
+	private: System::Void button_report_Click(System::Object^ sender, System::EventArgs^ e) {
+		DiaryHandler^ handler = gcnew DiaryHandler();
+
+		// Сбрасываем общие значения
+		handler->ResetTotals();
+
+		// Вычисляем общие значения для всех таблиц
+		handler->CalculateTotals(Breakfast_tabl);
+		handler->CalculateTotals(Lunch_tabl);
+		handler->CalculateTotals(Dinner_tabl);
+		handler->CalculateTotals(Snack_tabl);
+
+		// Получаем итоговые значения
+		double totalCalories = handler->GetTotalCalories();
+		double totalProteins = handler->GetTotalProteins();
+		double totalFats = handler->GetTotalFats();
+		double totalCarbs = handler->GetTotalCarbs();
+
+		// Формируем сообщение для пользователя
+		String^ message = "Ваши дневные показатели:\n" +
+			"Калории: " + totalCalories.ToString("F2") + "\n" +
+			"Белки: " + totalProteins.ToString("F2") + " г\n" +
+			"Жиры: " + totalFats.ToString("F2") + " г\n" +
+			"Углеводы: " + totalCarbs.ToString("F2") + " г";
+
+		// Показать сообщение
+		MessageBox::Show(message, "Дневная сводка", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 };
 }
