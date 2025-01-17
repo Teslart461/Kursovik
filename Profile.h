@@ -1,6 +1,8 @@
 #pragma once
 #include "UserData.h"
 #include "Computation.h"
+#include "IngWorking.h"
+#include "RecWorking.h"
 
 namespace Kursovaya2 {
 
@@ -45,8 +47,10 @@ namespace Kursovaya2 {
 
 	private: System::Windows::Forms::TextBox^ textBox_username;
 	private: System::Windows::Forms::Button^ button_username_change;
-	private: System::Windows::Forms::Button^ button_add_ing;
-	private: System::Windows::Forms::Button^ button_add_recipe;
+	private: System::Windows::Forms::Button^ button_ing;
+	private: System::Windows::Forms::Button^ button_recipe;
+
+
 	private: System::Windows::Forms::Button^ button_calculate;
 	public: static int ism = 0;
 
@@ -67,8 +71,8 @@ namespace Kursovaya2 {
 			this->label_username = (gcnew System::Windows::Forms::Label());
 			this->textBox_username = (gcnew System::Windows::Forms::TextBox());
 			this->button_username_change = (gcnew System::Windows::Forms::Button());
-			this->button_add_ing = (gcnew System::Windows::Forms::Button());
-			this->button_add_recipe = (gcnew System::Windows::Forms::Button());
+			this->button_ing = (gcnew System::Windows::Forms::Button());
+			this->button_recipe = (gcnew System::Windows::Forms::Button());
 			this->button_calculate = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
@@ -109,31 +113,33 @@ namespace Kursovaya2 {
 			this->button_username_change->UseVisualStyleBackColor = false;
 			this->button_username_change->Click += gcnew System::EventHandler(this, &Profile::button_username_change_Click);
 			// 
-			// button_add_ing
+			// button_ing
 			// 
-			this->button_add_ing->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->button_add_ing->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->button_add_ing->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button_ing->BackColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->button_ing->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->button_ing->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_add_ing->Location = System::Drawing::Point(297, 53);
-			this->button_add_ing->Name = L"button_add_ing";
-			this->button_add_ing->Size = System::Drawing::Size(195, 61);
-			this->button_add_ing->TabIndex = 6;
-			this->button_add_ing->Text = L"Добавить ингредиент";
-			this->button_add_ing->UseVisualStyleBackColor = false;
+			this->button_ing->Location = System::Drawing::Point(297, 53);
+			this->button_ing->Name = L"button_ing";
+			this->button_ing->Size = System::Drawing::Size(195, 61);
+			this->button_ing->TabIndex = 6;
+			this->button_ing->Text = L"Управление ингредиентами";
+			this->button_ing->UseVisualStyleBackColor = false;
+			this->button_ing->Click += gcnew System::EventHandler(this, &Profile::button_ing_Click);
 			// 
-			// button_add_recipe
+			// button_recipe
 			// 
-			this->button_add_recipe->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->button_add_recipe->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->button_add_recipe->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button_recipe->BackColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->button_recipe->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->button_recipe->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_add_recipe->Location = System::Drawing::Point(297, 192);
-			this->button_add_recipe->Name = L"button_add_recipe";
-			this->button_add_recipe->Size = System::Drawing::Size(195, 62);
-			this->button_add_recipe->TabIndex = 7;
-			this->button_add_recipe->Text = L"Добавить рецепт";
-			this->button_add_recipe->UseVisualStyleBackColor = false;
+			this->button_recipe->Location = System::Drawing::Point(297, 192);
+			this->button_recipe->Name = L"button_recipe";
+			this->button_recipe->Size = System::Drawing::Size(195, 62);
+			this->button_recipe->TabIndex = 7;
+			this->button_recipe->Text = L"Управление рецептами";
+			this->button_recipe->UseVisualStyleBackColor = false;
+			this->button_recipe->Click += gcnew System::EventHandler(this, &Profile::button_recipe_Click);
 			// 
 			// button_calculate
 			// 
@@ -155,13 +161,13 @@ namespace Kursovaya2 {
 			this->BackColor = System::Drawing::Color::Black;
 			this->ClientSize = System::Drawing::Size(536, 309);
 			this->Controls->Add(this->button_calculate);
-			this->Controls->Add(this->button_add_recipe);
-			this->Controls->Add(this->button_add_ing);
+			this->Controls->Add(this->button_recipe);
+			this->Controls->Add(this->button_ing);
 			this->Controls->Add(this->button_username_change);
 			this->Controls->Add(this->textBox_username);
 			this->Controls->Add(this->label_username);
 			this->ForeColor = System::Drawing::Color::DeepSkyBlue;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->Name = L"Profile";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Profile";
@@ -192,6 +198,19 @@ namespace Kursovaya2 {
 		Computation^ CompForm = gcnew Computation();  
 		CompForm->Show();
 		CompForm->Owner = this;
+	}
+
+	private: System::Void button_ing_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Hide();
+		IngWorking^ IngForm = gcnew IngWorking();
+		IngForm->Show();
+		IngForm->Owner = this;
+	}
+	private: System::Void button_recipe_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Hide();
+		RecWorking^ RecForm = gcnew RecWorking();
+		RecForm->Show();
+		RecForm->Owner = this;
 	}
 };
 }
