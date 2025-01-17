@@ -1,5 +1,8 @@
 #pragma once
 #include "Diary.h"
+#include "Profile.h"
+#include "Report.h"
+#include "UserData.h"
 
 namespace Kursovaya2 {
 
@@ -16,9 +19,13 @@ namespace Kursovaya2 {
 	public ref class Main : public System::Windows::Forms::Form
 	{
 	public:
+	private: UserData^ userData;
+	public: 
+
 		Main(void)
 		{
 			InitializeComponent();
+			userData = gcnew UserData();  // Создаем общий объект данных
 			//
 			//TODO: добавьте код конструктора
 			//
@@ -35,7 +42,9 @@ namespace Kursovaya2 {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ Label_welcome;
+	private: System::Windows::Forms::Label^ label_welcome;
+	protected:
+
 	private: System::Windows::Forms::Button^ button_profile;
 	private: System::Windows::Forms::Button^ button_diary;
 	private: System::Windows::Forms::Button^ button_reports_of_nutrition;
@@ -55,26 +64,27 @@ namespace Kursovaya2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->Label_welcome = (gcnew System::Windows::Forms::Label());
+			this->label_welcome = (gcnew System::Windows::Forms::Label());
 			this->button_profile = (gcnew System::Windows::Forms::Button());
 			this->button_diary = (gcnew System::Windows::Forms::Button());
 			this->button_reports_of_nutrition = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// Label_welcome
+			// label_welcome
 			// 
-			this->Label_welcome->AutoSize = true;
-			this->Label_welcome->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(39)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+			this->label_welcome->AutoSize = true;
+			this->label_welcome->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(39)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(38)));
-			this->Label_welcome->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->Label_welcome->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label_welcome->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->label_welcome->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Label_welcome->Location = System::Drawing::Point(94, 54);
-			this->Label_welcome->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->Label_welcome->Name = L"Label_welcome";
-			this->Label_welcome->Size = System::Drawing::Size(278, 33);
-			this->Label_welcome->TabIndex = 0;
-			this->Label_welcome->Text = L"Добро пожаловать!";
+			this->label_welcome->Location = System::Drawing::Point(94, 54);
+			this->label_welcome->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_welcome->Name = L"label_welcome";
+			this->label_welcome->Size = System::Drawing::Size(278, 33);
+			this->label_welcome->TabIndex = 0;
+			this->label_welcome->Text = L"Добро пожаловать!";
+			this->label_welcome->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// button_profile
 			// 
@@ -83,12 +93,13 @@ namespace Kursovaya2 {
 			this->button_profile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->button_profile->Location = System::Drawing::Point(164, 129);
-			this->button_profile->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button_profile->Margin = System::Windows::Forms::Padding(2);
 			this->button_profile->Name = L"button_profile";
 			this->button_profile->Size = System::Drawing::Size(122, 46);
 			this->button_profile->TabIndex = 1;
 			this->button_profile->Text = L"Профиль";
 			this->button_profile->UseVisualStyleBackColor = false;
+			this->button_profile->Click += gcnew System::EventHandler(this, &Main::button_profile_Click);
 			// 
 			// button_diary
 			// 
@@ -97,7 +108,7 @@ namespace Kursovaya2 {
 			this->button_diary->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->button_diary->Location = System::Drawing::Point(164, 212);
-			this->button_diary->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button_diary->Margin = System::Windows::Forms::Padding(2);
 			this->button_diary->Name = L"button_diary";
 			this->button_diary->Size = System::Drawing::Size(122, 46);
 			this->button_diary->TabIndex = 2;
@@ -112,12 +123,13 @@ namespace Kursovaya2 {
 			this->button_reports_of_nutrition->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
 			this->button_reports_of_nutrition->Location = System::Drawing::Point(164, 291);
-			this->button_reports_of_nutrition->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button_reports_of_nutrition->Margin = System::Windows::Forms::Padding(2);
 			this->button_reports_of_nutrition->Name = L"button_reports_of_nutrition";
 			this->button_reports_of_nutrition->Size = System::Drawing::Size(122, 46);
 			this->button_reports_of_nutrition->TabIndex = 3;
 			this->button_reports_of_nutrition->Text = L"Отчёты";
 			this->button_reports_of_nutrition->UseVisualStyleBackColor = false;
+			this->button_reports_of_nutrition->Click += gcnew System::EventHandler(this, &Main::button_reports_of_nutrition_Click);
 			// 
 			// Main
 			// 
@@ -128,25 +140,62 @@ namespace Kursovaya2 {
 			this->Controls->Add(this->button_reports_of_nutrition);
 			this->Controls->Add(this->button_diary);
 			this->Controls->Add(this->button_profile);
-			this->Controls->Add(this->Label_welcome);
+			this->Controls->Add(this->label_welcome);
 			this->ForeColor = System::Drawing::Color::DeepSkyBlue;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Main";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"NutriTrack";
 			this->Load += gcnew System::EventHandler(this, &Main::Main_Load);
+			this->MouseEnter += gcnew System::EventHandler(this, &Main::Main_MouseEnter);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
+
+	private: System::Void Main_Load(System::Object^ sender, System::EventArgs^ e) { 
+		// Массив имён файлов для проверки
+		array<String^>^ filePaths = { "ingredients.txt", "recipes.txt" };
+
+		for each (String ^ filePath in filePaths) {
+			if (!File::Exists(filePath)) {
+				try {
+					// Создаём пустой файл
+					File::WriteAllText(filePath, "");
+					MessageBox::Show("Файл " + filePath + " не найден. Создан новый пустой файл.", "Информация", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				catch (Exception^ ex) {
+					MessageBox::Show("Ошибка при создании файла " + filePath + ": " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+			}
+		}
+	}
+
 	String^ getCurrentDate() {
 		DateTime now = DateTime::Now;
 		return now.ToString("dd-MM-yyyy");
 	}
 
-	void updateDiaryFile(String^ filename) {
+
+	// Функция для создания пути к файлам пользователя
+	String^ getUserFilePath(String^ userName, String^ fileName) {
+		// Создаём путь к директории пользователя
+		String^ userDirectory = Path::Combine("users", userName);
+
+		// Проверка: Создание папки, только если её нет
+		if (!Directory::Exists(userDirectory)) {
+			Directory::CreateDirectory(userDirectory);
+		}
+
+		// Возвращаем полный путь к файлу (а не к папке)
+		return Path::Combine(userDirectory, fileName); // Возвращаем путь к файлу, а не к папке
+	}
+
+	void updateDiaryFile(String^ userName, String^ fileName) {
+		String^ filename = getUserFilePath(userName, fileName);
+
 		String^ today = getCurrentDate();
 		if (!File::Exists(filename)) {
 			StreamWriter^ file = gcnew StreamWriter(filename);
@@ -170,7 +219,9 @@ namespace Kursovaya2 {
 		}
 	}
 
-	void createOrUpdateFile(String^ filename) {
+	void createOrUpdateFile(String^ userName, String^ fileName) {
+		String^ filename = getUserFilePath(userName, fileName);
+
 		String^ today = getCurrentDate();
 		if (!File::Exists(filename)) {
 			StreamWriter^ file = gcnew StreamWriter(filename);
@@ -190,19 +241,44 @@ namespace Kursovaya2 {
 		}
 	}
 
-	private: System::Void Main_Load(System::Object^ sender, System::EventArgs^ e) { // Сделана проверка на существование файлов и проверка на дату. Diary.txt это не касается, но у него есть добавление даты, так как он используется для отчётов
-		updateDiaryFile("diary.txt");
-		createOrUpdateFile("breakfast.txt");
-		createOrUpdateFile("lunch.txt");
-		createOrUpdateFile("dinner.txt");
-		createOrUpdateFile("snack.txt");
-	}
-
 	private: System::Void button_diary_Click(System::Object^ sender, System::EventArgs^ e) {
-		Diary^ DiaryShow = gcnew Diary();
+		Diary^ DiaryShow = gcnew Diary(userData);
 		DiaryShow->Show();
 		DiaryShow->Owner = this;
 		this->Hide();
 	}
-	};
+
+	private: System::Void button_profile_Click(System::Object^ sender, System::EventArgs^ e) {
+		Profile^ profileForm = gcnew Profile(userData);  // Передаем данные в новую форму
+		profileForm->Show();
+		profileForm->Owner = this;
+		this->Hide();
+	}
+
+	private: System::Void Main_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
+	if (Profile::ism == 1) {
+		this->button_diary->Enabled = true;
+		this->button_reports_of_nutrition->Enabled = true;
+		this->label_welcome->Location = System::Drawing::Point(21, 54);
+		this->label_welcome->Text = L"Добро пожаловать, " + userData->UserName + "!";
+		String^ currentUserName = userData->UserName;  // Используем переданный объект данных
+		updateDiaryFile(currentUserName, "diary.txt");
+		createOrUpdateFile(currentUserName, "breakfast.txt");
+		createOrUpdateFile(currentUserName, "lunch.txt");
+		createOrUpdateFile(currentUserName, "dinner.txt");
+		createOrUpdateFile(currentUserName, "snack.txt");
+	}
+	else {
+		this->button_diary->Enabled = false;
+		this->button_reports_of_nutrition->Enabled = false;
+	}
+}
+
+	private: System::Void button_reports_of_nutrition_Click(System::Object^ sender, System::EventArgs^ e) {
+		Report^ ReportForm = gcnew Report(userData);  // Передаем данные в новую форму
+		ReportForm->Show();
+		ReportForm->Owner = this;
+		this->Hide();
+	}
+};
 }
